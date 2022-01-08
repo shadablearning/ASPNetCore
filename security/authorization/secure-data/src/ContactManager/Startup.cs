@@ -64,8 +64,15 @@ namespace ContactManager
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                context.Database.Migrate();
+                // requires using Microsoft.Extensions.Configuration;
+                // Set password with the Secret Manager tool.
+                // dotnet user-secrets set SeedUserPW <pw>
 
-                SeedData.Initialize(services);
+                var testUserPw = Configuration.GetValue<string>("SeedUserPW");
+
+                SeedData.Initialize(services, testUserPw);
             }
 
             if (env.IsDevelopment())
