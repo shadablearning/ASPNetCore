@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/security/authorization/secure-data/src/ContactManager/bin/Debug/netcoreapp3.1
+/security/authorization/secure-data/src/ContactManager/.vs/ContactManager
+/security/authorization/secure-data/src/ContactManager/obj
+/security/authorization/secure-data/src/ContactManager/Properties
+/security/authorization/secure-data/src/ContactManager/ContactManager.sln
+/security/authorization/secure-data/src/ContactManager/ContactManager.csproj.user
