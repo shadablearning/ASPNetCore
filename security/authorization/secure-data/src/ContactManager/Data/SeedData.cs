@@ -23,10 +23,10 @@ namespace ContactManager.Data
                 // dotnet user-secrets set SeedUserPW <pw>
                 // The admin user can do anything
                 var adminID = await EnsureUser(serviceProvider, testUserPw, "shadabadmin@security.com");
+                await EnsureRole(serviceProvider, adminID, Constants.ContactAdministratorsRole);
 
                 // allowed user can create and edit contacts that they create
                 var managerID = await EnsureUser(serviceProvider, testUserPw, "shadabmanager@security.com");
-
                 await EnsureRole(serviceProvider, managerID, Constants.ContactManagersRole);
 
                 SeedDB(context, adminID);
@@ -48,7 +48,9 @@ namespace ContactManager.Data
                     City = "Redmond",
                     State = "WA",
                     Zip = "10999",
-                    Email = "debra@example.com"
+                    Email = "debra@example.com",
+                    Status = ContactStatus.Approved,
+                    OwnerID = adminID
                 },
                 new Contact
                 {

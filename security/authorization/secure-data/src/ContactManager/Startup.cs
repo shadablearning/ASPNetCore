@@ -1,3 +1,4 @@
+using ContactManager.Authorization;
 using ContactManager.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -55,6 +56,16 @@ namespace ContactManager
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            // Authorization handlers.
+            services.AddScoped<IAuthorizationHandler,
+                                  ContactIsOwnerAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                                  ContactAdministratorsAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                                  ContactManagerAuthorizationHandler>();
 
         }
 
