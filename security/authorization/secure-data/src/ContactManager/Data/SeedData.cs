@@ -13,7 +13,7 @@ namespace ContactManager.Data
 {
     public static class SeedData
     {
-        public static async void Initialize(IServiceProvider serviceProvider, string testUserPw = "")
+        public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw = "")
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
@@ -105,7 +105,14 @@ namespace ContactManager.Data
                     UserName = UserName,
                     EmailConfirmed = true
                 };
-                await userManager.CreateAsync(user, testUserPw);
+                try
+                {
+                    var tskUser=await userManager.CreateAsync(user, testUserPw);
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
 
             if (user == null)

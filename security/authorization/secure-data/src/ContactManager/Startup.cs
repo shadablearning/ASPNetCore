@@ -67,24 +67,27 @@ namespace ContactManager
             services.AddSingleton<IAuthorizationHandler,
                                   ContactManagerAuthorizationHandler>();
 
+            services.AddRazorPages();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<ApplicationDbContext>();
-                context.Database.Migrate();
-                // requires using Microsoft.Extensions.Configuration;
-                // Set password with the Secret Manager tool.
-                // dotnet user-secrets set SeedUserPW <pw>
+            //using (var scope = app.ApplicationServices.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var context = services.GetRequiredService<ApplicationDbContext>();
+            //    context.Database.Migrate();
+            //    // requires using Microsoft.Extensions.Configuration;
+            //    // Set password with the Secret Manager tool.
+            //    // dotnet user-secrets set SeedUserPW <pw>
 
-                var testUserPw = Configuration.GetValue<string>("SeedUserPW");
+            //    var testUserPw = Configuration.GetValue<string>("SeedUserPW");
 
-                SeedData.Initialize(services, testUserPw);
-            }
+            //    await SeedData.Initialize(services, testUserPw);
+            //}
 
             if (env.IsDevelopment())
             {
